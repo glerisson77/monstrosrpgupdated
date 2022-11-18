@@ -11,7 +11,7 @@ class Monsters(pygame.sprite.Sprite):
         self.hp = hp
         self.pos = pos
 
-        self.image = pygame.image.load(f"images/{self.name}.png")
+        self.image = pygame.image.load(f"images/monsters/{self.name}.png")
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect(center=pos)
 

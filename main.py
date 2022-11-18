@@ -3,13 +3,16 @@ from settings import *
 from monsters import *
 
 
-
 class Main():
     def __init__(self):
         pygame.init()
         self.display_surface = pygame.display.set_mode((windowWidth, windowHeight))
         pygame.display.set_caption('Monstros rpg')
         self.clock = pygame.time.Clock()
+
+        # images convertalpha part
+        for icon in buttonsList:
+            icon = icon.convert_alpha()
 
         self.monsters = pygame.sprite.Group()
 
@@ -36,6 +39,15 @@ class Main():
                         self.battleScreen()
             dt = self.clock.tick() / 1000
             self.display_surface.fill((0, 0, 0))
+
+            #display all icons
+            self.yPosition = 10
+            for icon in buttonsList:
+                if icon != playButton:
+                    self.display_surface.blit(icon, (20, self.yPosition))
+                    self.yPosition += 50
+                if icon == playButton:
+                    self.display_surface.blit(playButton, (windowWidth - playButton.get_width() - 20, 0))
 
             pygame.display.update()
 
