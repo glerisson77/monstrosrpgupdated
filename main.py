@@ -59,6 +59,7 @@ class Main():
 
             buttonsPos = 50
             for button in buttonsGroup:
+
                 button.image = button.image.convert_alpha()
                 button.rect = button.image.get_rect(center = (200, buttonsPos))
                 buttonsPos += 60

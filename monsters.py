@@ -18,4 +18,3 @@ class Monsters(pygame.sprite.Sprite):
 darkman = Monsters('darkman', 'dark', 300, 300, 300, (200, 200))
 darkthing = Monsters('darkthing', 'dark', 300, 300, 300, (400, 200))
 monstersList = [darkman, darkthing]
-
