@@ -12,8 +12,6 @@ class Main():
         self.clock = pygame.time.Clock()
 
         # images convertalpha part
-        for icon in buttonsList:
-            icon = icon.convert_alpha()
 
         self.monsters = pygame.sprite.Group()
 
@@ -22,14 +20,19 @@ class Main():
         self.monsters.add(self.monster1Player1)
         return self.monsters
 
-    def buttonsCollision(self):
-        pass
-
-    def displayBackgroundChoosePS(self, rect):
-        if rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
-            # if rect ==
-            print('col')
-            return self.display_surface.blit(redBackground, (redBackgroundRect))
+    def displayBackgroundChoosePS(self):
+        displayBackground = None
+        if fireMonstersButtonImg.buttonPressed:
+            for button in buttonsGroup:
+                if button.name != fireMonstersButtonImg.name:
+                    button.buttonPressed = False
+            displayBackground = self.display_surface.blit(redBackgroundImg, (0, 0))
+        elif waterMonstersButtonImg.buttonPressed:
+            for button in buttonsGroup:
+                if button.name != waterMonstersButtonImg.name:
+                    button.buttonPressed = False
+                    print('blue')
+            displayBackground = self.display_surface.blit(blueBackgroundImg, (0, 0))
 
     def choosePlayersScreen(self):
         self.chooseMonsterGroup = pygame.sprite.Group()
@@ -37,6 +40,7 @@ class Main():
 
 
         while True:
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -51,28 +55,26 @@ class Main():
 
             dt = self.clock.tick() / 1000
             self.display_surface.fill((0, 0, 0))
+            self.displayBackgroundChoosePS()
+
+            buttonsPos = 50
+            for button in buttonsGroup:
+                button.image = button.image.convert_alpha()
+                button.rect = button.image.get_rect(center = (200, buttonsPos))
+                buttonsPos += 60
+            buttonsGroup.draw(self.display_surface)
 
 
             #display all icons
             self.yPosition = 50
-            for icon in buttonsList:
-                if icon != playButton:
-                    iconRect = icon.get_rect(center = (150, self.yPosition))
-                    self.display_surface.blit(icon, (iconRect))
-                    self.yPosition += 50
-                    self.displayBackgroundChoosePS(iconRect)
-                if icon == playButton:
-                    playButtonX = 150
-                    playButtonY = windowHeight - playButton.get_height() - 20
-                    playButtonRect = playButton.get_rect(center = (playButtonX, playButtonY))
-                    self.display_surface.blit(playButton, (playButtonRect))
+            # for icon in buttonsGroup:
+            #     pass
 
-            if pygame.mouse.get_pressed()[0]:
-                if playButtonRect.collidepoint(pygame.mouse.get_pos()):
-                    self.battleScreen()
+            # if pygame.mouse.get_pressed()[0]:
+            #     if playButtonRect.collidepoint(pygame.mouse.get_pos()):
+            #         self.battleScreen()
 
-
-
+            buttonsGroup.update()
             pygame.display.update()
 
     def battleScreen(self):
