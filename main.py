@@ -1,6 +1,7 @@
 import pygame, sys
 from settings import *
 from monsters import *
+from debug import *
 
 
 class Main():
@@ -21,9 +22,19 @@ class Main():
         self.monsters.add(self.monster1Player1)
         return self.monsters
 
+    def buttonsCollision(self):
+        pass
+
+    def displayBackgroundChoosePS(self, rect):
+        if rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
+            # if rect ==
+            print('col')
+            return self.display_surface.blit(redBackground, (redBackgroundRect))
+
     def choosePlayersScreen(self):
         self.chooseMonsterGroup = pygame.sprite.Group()
         self.chooseMonsterGroup.add(monstersList)
+
 
         while True:
             for event in pygame.event.get():
@@ -37,17 +48,30 @@ class Main():
                         sys.exit()
                     if event.key == pygame.K_SPACE:
                         self.battleScreen()
+
             dt = self.clock.tick() / 1000
             self.display_surface.fill((0, 0, 0))
 
+
             #display all icons
-            self.yPosition = 10
+            self.yPosition = 50
             for icon in buttonsList:
                 if icon != playButton:
-                    self.display_surface.blit(icon, (20, self.yPosition))
+                    iconRect = icon.get_rect(center = (150, self.yPosition))
+                    self.display_surface.blit(icon, (iconRect))
                     self.yPosition += 50
+                    self.displayBackgroundChoosePS(iconRect)
                 if icon == playButton:
-                    self.display_surface.blit(playButton, (windowWidth - playButton.get_width() - 20, 0))
+                    playButtonX = 150
+                    playButtonY = windowHeight - playButton.get_height() - 20
+                    playButtonRect = playButton.get_rect(center = (playButtonX, playButtonY))
+                    self.display_surface.blit(playButton, (playButtonRect))
+
+            if pygame.mouse.get_pressed()[0]:
+                if playButtonRect.collidepoint(pygame.mouse.get_pos()):
+                    self.battleScreen()
+
+
 
             pygame.display.update()
 

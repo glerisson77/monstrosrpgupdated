@@ -10,6 +10,15 @@ lightMonstersButtonImg = pygame.image.load("images/icons/mlbutton.png")
 #settings icons
 playButton = pygame.image.load("images/icons/JOGARBUTTONC.png")
 
+
+
+
+#backgrounds images
+redBackground = pygame.image.load("images/icons/bgairchose.png")
+
+#images rects
+redBackgroundRect = redBackground.get_rect(center = (1000, 500))
+
 cardsHeight = 50
 cardsWidth = 300
 fireMonstersButtonImg = pygame.transform.scale(fireMonstersButtonImg, (cardsWidth, cardsHeight))
@@ -18,7 +27,9 @@ natureMonstersButtonImg = pygame.transform.scale(natureMonstersButtonImg, (cards
 terrainMonstersButtonImg = pygame.transform.scale(terrainMonstersButtonImg, (cardsWidth, cardsHeight))
 darkMonstersButtonImg = pygame.transform.scale(darkMonstersButtonImg, (cardsWidth, cardsHeight))
 lightMonstersButtonImg = pygame.transform.scale(lightMonstersButtonImg, (cardsWidth, cardsHeight))
-playButton = pygame.transform.scale(playButton, (300, 200))
+playButton = pygame.transform.scale(playButton, (200, 100))
+
+redBackground = pygame.transform.scale(redBackground, (700, 600))
 
 buttonsList = [fireMonstersButtonImg, waterMonstersButtonImg, natureMonstersButtonImg, terrainMonstersButtonImg, darkMonstersButtonImg, lightMonstersButtonImg, playButton]
 
